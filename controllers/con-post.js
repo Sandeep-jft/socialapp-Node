@@ -45,7 +45,7 @@ module.exports = {
 
   likePost: (req, res) => {
     const { _id } = JSON.parse(req.body._id);
-    console.log("The id is ", _id);
+    console.log("The like id is ", _id);
     Post.findByIdAndUpdate(
       _id,
       {
