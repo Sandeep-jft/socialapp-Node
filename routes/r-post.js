@@ -9,4 +9,8 @@ router.get("/allPost", verification, postController.allPost);
 
 router.get("/myPost", verification, postController.myPost);
 
+router.put("/likePost", verification, postController.likePost);
+
+router.put("unlikePost", verification, postController.unlikePost);
+
 module.exports = router;
