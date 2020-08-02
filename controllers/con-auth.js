@@ -58,7 +58,6 @@ module.exports = {
               if (authenticated) {
                 const token = jwt.sign({ _id: foundUser._id }, SECRET_KEY);
                 const { _id, name, email } = foundUser;
-                console.log("The user details are ", _id, name, email);
                 return res.json({
                   token,
                   user: { _id, name, email },

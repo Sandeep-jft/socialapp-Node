@@ -26,6 +26,7 @@ module.exports = {
 
   allPost: (req, res) => {
     Post.find()
+      .sort({ _id: -1 })
       .populate("postedBy", "_id name")
       .then((allpost) => {
         res.json({ allpost });
@@ -44,8 +45,8 @@ module.exports = {
   },
 
   likePost: (req, res) => {
-    const { _id } = JSON.parse(req.body._id);
-    console.log("The like id is ", _id);
+    const { _id } = req.body;
+    console.log(req.body._id);
     Post.findByIdAndUpdate(
       _id,
       {
@@ -54,25 +55,28 @@ module.exports = {
       { new: true }
     ).exec((err, result) => {
       if (err) {
+        console.log("err ", err);
         return res.json({ error: "Can't like the post now" });
       } else {
+        console.log("Output  ", result);
         return res.json(result);
       }
     });
   },
   unlikePost: (req, res) => {
-    const { _id } = JSON.parse(req.body._id);
-    console.log("The dislike id is ", _id);
+    const { _id } = req.body;
+    console.log(_id);
     Post.findByIdAndUpdate(
       _id,
       {
         $pull: { likes: req.user._id },
       },
-      { new: true }
+      { new: true, useFindAndModify: false }
     ).exec((err, result) => {
       if (err) {
         return res.json({ error: "Can't dislike the post now" });
       } else {
+        console.log("The result  ", result);
         return res.json(result);
       }
     });
