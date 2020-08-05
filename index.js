@@ -19,6 +19,7 @@ app.use(express.json());
 
 app.use(require("./routes/r-auth"));
 app.use(require("./routes/r-post"));
+app.use(require("./routes/r-user"));
 
 app.listen(5000, () => {
   console.log("server is running at port 5000");
