@@ -6,10 +6,18 @@ const { SECRET_KEY } = require("../keys");
 
 module.exports = {
   signup: (req, res) => {
-    const { name, email, password, confirmPassword } = JSON.parse(
+    const { name, email, password, confirmPassword, pic } = JSON.parse(
       req.body.data
     );
-    console.log("check ", password, confirmPassword, name, email);
+    console.log(
+      "check ",
+      password,
+      confirmPassword,
+      name,
+      email,
+      " Body ",
+      JSON.parse(req.body.data)
+    );
     if (!name || !email || !password || !confirmPassword) {
       return res.status(201).json({ error: "All fields are mandatory" });
     }
@@ -29,6 +37,7 @@ module.exports = {
           email,
           name,
           password,
+          pic,
         });
 
         createUser
@@ -57,10 +66,17 @@ module.exports = {
             .then((authenticated) => {
               if (authenticated) {
                 const token = jwt.sign({ _id: foundUser._id }, SECRET_KEY);
-                const { _id, name, email } = foundUser;
+                const {
+                  _id,
+                  name,
+                  email,
+                  followers,
+                  following,
+                  pic,
+                } = foundUser;
                 return res.json({
                   token,
-                  user: { _id, name, email },
+                  user: { _id, name, email, followers, following, pic },
                   message: "Signed in successfully",
                 });
               } else {

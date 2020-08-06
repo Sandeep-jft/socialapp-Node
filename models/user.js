@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcryptjs = require("bcryptjs"),
   SALT_WORK_FACTOR = 12;
+const { ObjectId } = mongoose.Schema.Types;
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -14,6 +15,23 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+  },
+  followers: [
+    {
+      type: ObjectId,
+      ref: "User",
+    },
+  ],
+  following: [
+    {
+      type: ObjectId,
+      ref: "User",
+    },
+  ],
+  pic: {
+    type: String,
+    default:
+      "https://res.cloudinary.com/sandeep32/image/upload/v1596626739/profile_x7vnm4.webp",
   },
 });
 

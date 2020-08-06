@@ -41,6 +41,7 @@ module.exports = {
     Post.find({ postedBy: req.user._id })
       .populate("postedBy")
       .then((mypost) => {
+        console.log("My post are ", mypost);
         res.json({ mypost });
       });
   },
@@ -150,6 +151,20 @@ module.exports = {
           console.log("The result  ", result);
           return res.json(result);
         }
+      });
+  },
+
+  followingPost: (req, res) => {
+    console.log("The user is ", req.user);
+    Post.find({ postedBy: { $in: req.user.following } })
+      .sort({ _id: -1 })
+      .populate("postedBy", "_id name")
+      .populate("comments.postedBy", "_id name")
+      .then((allpost) => {
+        res.json({ allpost });
+      })
+      .catch((err) => {
+        console.log("Error : ", err);
       });
   },
 };

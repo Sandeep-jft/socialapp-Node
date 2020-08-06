@@ -23,4 +23,6 @@ router.delete(
   postController.deleteComment
 );
 
+router.get("/followingPost", verification, postController.followingPost);
+
 module.exports = router;
