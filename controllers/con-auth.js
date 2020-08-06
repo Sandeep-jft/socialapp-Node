@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const User = mongoose.model("User");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { SECRET_KEY } = require("../keys");
+const { SECRET_KEY } = require("../config/keys");
 
 module.exports = {
   signup: (req, res) => {
