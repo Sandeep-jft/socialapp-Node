@@ -20,7 +20,7 @@ module.exports = {
         res.json({ post: createdPost, message: "Post added successfully" });
       })
       .catch((err) => {
-        console.log("Err ", err);
+        console.log("Error ", err);
       });
   },
 
