@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 const Post = mongoose.model("Post");
 const User = mongoose.model("User");
+const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey(
+  "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"
+);
 
 module.exports = {
   userProfile: (req, res) => {
