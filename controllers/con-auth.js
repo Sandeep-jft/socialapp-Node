@@ -3,9 +3,13 @@ const User = mongoose.model("User");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { SECRET_KEY } = require("../config/keys");
+const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey(
+  "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"
+);
 
 module.exports = {
-  signup: (req, res) => {
+  signup: async (req, res) => {
     const { name, email, password, confirmPassword, pic } = JSON.parse(
       req.body.data
     );
@@ -42,7 +46,20 @@ module.exports = {
 
         createUser
           .save()
-          .then((user) => {
+          .then(async (user) => {
+            console.log("the user is ", user);
+            var msg = {
+              to: user.email,
+              from: "socialapp@uit.com",
+              subject: "Email Verification",
+              template_id: "d-ee5879196bc24b35a250d097c2d3bbe8",
+              dynamic_template_data: {
+                Name: user.name,
+                OTP: "1234",
+                Email: user.email,
+              },
+            };
+            const sendMail = await sgMail.send(msg);
             return res.json({ message: "User has been created successfully" });
           })
           .catch((err) => {

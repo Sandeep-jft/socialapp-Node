@@ -83,6 +83,7 @@ module.exports = {
       }
     });
   },
+
   comments: (req, res) => {
     const comment = {
       text: req.body.text,
@@ -130,6 +131,7 @@ module.exports = {
         }
       });
   },
+
   deleteComment: (req, res) => {
     const _id = req.params.postId;
     const commentId = req.params.commentID;

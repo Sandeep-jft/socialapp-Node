@@ -14,7 +14,7 @@ mongoose.connection.on("error", (err) => {
   console.log("Error : ", err);
 });
 
-app.use(cors());
+// app.use(cors());
 
 require("./models/user");
 require("./models/post");
