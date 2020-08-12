@@ -4,15 +4,14 @@ const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { SECRET_KEY } = require("../config/keys");
 const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(
-  "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"
-);
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 module.exports = {
   signup: async (req, res) => {
     const { name, email, password, confirmPassword, pic } = JSON.parse(
       req.body.data
     );
+    console.log("THe api key is ", process.env.SENDGRID_API_KEY);
     console.log(
       "check ",
       password,
@@ -52,7 +51,7 @@ module.exports = {
               to: user.email,
               from: "socialapp@uit.com",
               subject: "Email Verification",
-              template_id: "d-ee5879196bc24b35a250d097c2d3bbe8",
+              template_id: "d-596cc4a8edd4464ca6c990b1e13c2d67",
               dynamic_template_data: {
                 Name: user.name,
                 OTP: "1234",
