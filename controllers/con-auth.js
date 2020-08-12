@@ -11,7 +11,7 @@ module.exports = {
     const { name, email, password, confirmPassword, pic } = JSON.parse(
       req.body.data
     );
-    console.log("THe api key is ", process.env.SENDGRID_API_KEY);
+    // console.log("THe api key is ", process.env.SENDGRID_API_KEY);
     console.log(
       "check ",
       password,
